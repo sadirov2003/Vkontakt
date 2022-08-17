@@ -7,7 +7,7 @@ import 'package:flutter_vk_application/widgets_auth/third_main_screen.dart';
 
 void main() {
   runApp(MyApp());
-  //print('add');
+  print('add');
 }
 
 class MyApp extends StatelessWidget {
