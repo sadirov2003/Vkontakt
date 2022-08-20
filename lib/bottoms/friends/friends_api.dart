@@ -5,7 +5,7 @@ import 'package:http/http.dart' as http;
 
 class ApiFriends {
   Future<List<FriendsModel>> getSearchFriends(String quer) async {
-    final token = 'vk1.a.zYZjSQ5JzFcpXnDSAfOGAJDv377NoWDMUYEiED3BJ9KXyMjtT80LZNqjPiiTcuo_JdEyiSKmIkRl5sNImB7UKGr9AsNEJXDJmOHUYyJDorSmjLc9uanvm_9PMDc1fSlCUPmY_e9qbNXc1r83YjJMrrOCwgflJfnIgtWaS8ngrY-fqGW-4Jp1JxdCs6qG0iAg';
+    final token = 'vk1.a.UjJoQac6xuUaBqDn_9-mOadBoYOemo_r6sTouTXD_64m1Gvq7ad7b1VOZaUzcmae0wgwtBGFR_1tTuLW80x9LZs0UMqi-pb7tORVarSJnp7NpN9r6NI476__6I_anOL7Lzyghs1ElIMCzgl8imKt0dsMmNJYWRA053u-4Hc3GA9jbQ4cVr0jAN0dLGZdBYfz';
     String url =
         'https://api.vk.com/method/friends.search?count=60&fields=photo_100&q=$quer&v=5.81&access_token=$token';
     final uri = Uri.parse(url);
