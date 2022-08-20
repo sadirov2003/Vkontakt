@@ -7,6 +7,7 @@ import 'package:flutter_vk_application/bottoms/news/category_model.dart';
 import 'package:flutter_vk_application/bottoms/news/data.dart';
 import 'package:flutter_vk_application/bottoms/news/displaying_category_news.dart';
 import 'package:flutter_vk_application/bottoms/news/model.dart';
+import 'package:shared_preferences/shared_preferences.dart';
 
 class DisplayingNews extends StatefulWidget {
   const DisplayingNews({Key? key}) : super(key: key);
@@ -29,7 +30,6 @@ class _DisplayingNewsState extends State<DisplayingNews> {
   }
 
   void News() async {
-
     final news = await apiNews.getNews();
     setState(() {
       _news = news;
@@ -37,10 +37,16 @@ class _DisplayingNewsState extends State<DisplayingNews> {
     });
   }
 
+  final _storage = SharedPreferences.getInstance();
+
+  Future<void> readName() async {
+    final storage = await _storage;
+    //storage.setString(key, value)
+  }
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      
       body: _loading
           ? Center(
               child: Container(
@@ -50,19 +56,18 @@ class _DisplayingNewsState extends State<DisplayingNews> {
           : SafeArea(
               child: Column(children: [
                 Container(
-                    margin: EdgeInsets.all(6),
-                    height: 70,
-                    child: ListView.builder(
-                        itemCount: categories.length,
-                        shrinkWrap: true,
-                        scrollDirection: Axis.horizontal,
-                        itemBuilder: (BuildContext context, int index) {
-                          return CategoryTile(
-                              imageUrl: categories[index].imageUrl,
-                              categoryName: categories[index].categoryName);
-                        }),
-                  ),
-                
+                  margin: EdgeInsets.all(6),
+                  height: 70,
+                  child: ListView.builder(
+                      itemCount: categories.length,
+                      shrinkWrap: true,
+                      scrollDirection: Axis.horizontal,
+                      itemBuilder: (BuildContext context, int index) {
+                        return CategoryTile(
+                            imageUrl: categories[index].imageUrl,
+                            categoryName: categories[index].categoryName);
+                      }),
+                ),
                 Expanded(
                   child: ListView.builder(
                       itemCount: _news.length,
@@ -81,6 +86,7 @@ class _DisplayingNewsState extends State<DisplayingNews> {
     );
   }
 }
+
 class CategoryTile extends StatelessWidget {
   final imageUrl, categoryName;
   CategoryTile({
@@ -90,37 +96,39 @@ class CategoryTile extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return  GestureDetector(
+    return GestureDetector(
       onTap: () {
-          Navigator.push(
-              context,
-              MaterialPageRoute(
-                  builder: (context) => DispayingCategoryNews(categoryName: categoryName,)));
-        },
+        Navigator.push(
+            context,
+            MaterialPageRoute(
+                builder: (context) => DispayingCategoryNews(
+                      categoryName: categoryName,
+                    )));
+      },
       child: Container(
-            margin: EdgeInsets.only(right: 6),
-            child: Stack(children: [
-              ClipRRect(
-                borderRadius: BorderRadius.circular(6),
-                child: Image.network(imageUrl,
-                    width: 120, height: 60, fit: BoxFit.cover),
-              ),
-              Container(
-                  alignment: Alignment.center,
-                  width: 120,
-                  height: 60,
-                  decoration: BoxDecoration(
-                    borderRadius: BorderRadius.circular(6),
-                    color: Colors.black26,
-                  ),
-                  child: Text(categoryName,
-                      style: TextStyle(
-                        color: Colors.white,
-                        fontSize: 14,
-                        fontWeight: FontWeight.w500,
-                      ))),
-            ]),
+        margin: EdgeInsets.only(right: 6),
+        child: Stack(children: [
+          ClipRRect(
+            borderRadius: BorderRadius.circular(6),
+            child: Image.network(imageUrl,
+                width: 120, height: 60, fit: BoxFit.cover),
           ),
+          Container(
+              alignment: Alignment.center,
+              width: 120,
+              height: 60,
+              decoration: BoxDecoration(
+                borderRadius: BorderRadius.circular(6),
+                color: Colors.black26,
+              ),
+              child: Text(categoryName,
+                  style: TextStyle(
+                    color: Colors.white,
+                    fontSize: 14,
+                    fontWeight: FontWeight.w500,
+                  ))),
+        ]),
+      ),
     );
   }
 }
