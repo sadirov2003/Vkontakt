@@ -10,6 +10,8 @@ VideosModel _$VideosModelFromJson(Map<String, dynamic> json) => VideosModel(
       videoId: json['id']['videoId'] as String?,
       urlImage: json['snippet']['thumbnails']['high']['url'] as String,
       title: json['snippet']['title'],
+      channelTitle: json['snippet']['channelTitle'],
+      
     );
 
 Map<String, dynamic> _$VideosModelToJson(VideosModel instance) =>

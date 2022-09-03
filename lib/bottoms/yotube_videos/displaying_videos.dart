@@ -1,10 +1,9 @@
 import 'package:cached_network_image/cached_network_image.dart';
 import 'package:flutter/material.dart';
-import 'package:flutter/src/foundation/key.dart';
-import 'package:flutter/src/widgets/framework.dart';
 import 'package:flutter_vk_application/bottoms/yotube_videos/playing_videos.dart';
 import 'package:flutter_vk_application/bottoms/yotube_videos/videos_api.dart';
 import 'package:flutter_vk_application/bottoms/yotube_videos/videos_model.dart';
+
 
 class DisplayingVideos extends StatefulWidget {
   const DisplayingVideos({Key? key}) : super(key: key);
@@ -17,12 +16,13 @@ class _DisplayingVideosState extends State<DisplayingVideos> {
   final apiVideos = ApiVideos();
   List<VideosModel> _video = [];
   bool _loading = true;
-  final _searchController = TextEditingController(text: 'Programmer');
+  final _searchController = TextEditingController();
 
   void get() async {
     final quer = _searchController.text;
     final videos = await apiVideos.getVideos(quer);
     _video = videos;
+    
     setState(() {
       _loading = false;
     });
@@ -128,7 +128,7 @@ class _DisplayingVideosState extends State<DisplayingVideos> {
                                   ),
                                   onPressed: () {},
                                   child: Text(
-                                    model.title!,
+                                    model.title,
                                     style: TextStyle(
                                       fontSize: 16,
                                       color: Colors.black87,
@@ -136,7 +136,7 @@ class _DisplayingVideosState extends State<DisplayingVideos> {
                                     ),
                                   ),
                                 ),
-                                SizedBox(height: 5),
+                                //SizedBox(height: 5)
                               ],
                             ),
                           );

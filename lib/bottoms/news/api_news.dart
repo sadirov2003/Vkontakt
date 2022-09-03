@@ -6,7 +6,7 @@ import 'package:http/http.dart' as http;
 class ApiNews {
   Future<List<NewsModel>> getNews() async {
     String url =
-        'https://newsapi.org/v2/everything?q=tesla&from=2022-07-20&sortBy=publishedAt&apiKey=25ef5cf4d21b4678a8a67ff27ce37a60';
+        'https://newsapi.org/v2/everything?q=tesla&from=2022-07-30&sortBy=publishedAt&apiKey=25ef5cf4d21b4678a8a67ff27ce37a60';
     final uri = Uri.parse(url);
     final response = await http.get(uri);
     if (response.statusCode == 200) {
