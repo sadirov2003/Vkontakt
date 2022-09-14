@@ -46,7 +46,7 @@ class _MyVkPageState extends State<MyVkPage> {
               label: 'Новости'),
           BottomNavigationBarItem(
               icon: Icon(Icons.movie_filter), label: 'Друзья', backgroundColor: Colors.black),
-          BottomNavigationBarItem(icon: Icon(Icons.tv), label: 'Фильмы'),
+          BottomNavigationBarItem(icon: Icon(Icons.tv), label: 'Youtube'),
         ],
         onTap: onSelectTab,
       ),

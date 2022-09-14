@@ -3,12 +3,15 @@ import 'dart:convert';
 import 'package:flutter_vk_application/bottoms/yotube_videos/videos_model.dart';
 import 'package:http/http.dart' as http;
 import 'package:shared_preferences/shared_preferences.dart';
+import 'package:flutter_secure_storage/flutter_secure_storage.dart';
 
 class ApiVideos {
   Future<List<VideosModel>> getVideos(String quer) async {
     final _storage = SharedPreferences.getInstance();
     final storage = await _storage;
     final apiKey = storage.getString('api_key');
+    print(apiKey);
+
     final uri =
         'https://www.googleapis.com/youtube/v3/search?part=snippet&maxResults=10&q=$quer&key=$apiKey';
 

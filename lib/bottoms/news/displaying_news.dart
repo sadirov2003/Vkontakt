@@ -1,3 +1,5 @@
+import 'dart:convert';
+
 import 'package:cached_network_image/cached_network_image.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/src/foundation/key.dart';
@@ -30,18 +32,25 @@ class _DisplayingNewsState extends State<DisplayingNews> {
   }
 
   void News() async {
-    final news = await apiNews.getNews();
+    await apiNews.getNews();
+    final news = await _gettingNews();
+    _news = news;
     setState(() {
-      _news = news;
       _loading = false;
     });
   }
 
-  final _storage = SharedPreferences.getInstance();
-
-  Future<void> readName() async {
+  Future<List<NewsModel>> _gettingNews() async {
+    final _storage = SharedPreferences.getInstance();
     final storage = await _storage;
-    //storage.setString(key, value)
+    final newsInfo = storage.getString('news_key');
+    if (newsInfo == null) {
+      throw Exception('В хранилище данные отсутствует!!!');
+    } else {
+      final jsonData = json.decode(newsInfo);
+      Iterable list = jsonData['articles'];
+      return list.map((dynamic n) => NewsModel.fromJson(n)).toList();
+    }
   }
 
   @override
