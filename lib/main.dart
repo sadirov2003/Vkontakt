@@ -28,7 +28,7 @@ class MyApp extends StatelessWidget {
         '/thirdMainScreen': (context) => ThirdMainScreen(),
         '/myVkPage': (context) => MyVkPage(),
       },
-      initialRoute: '/myVkPage',
+      initialRoute: '/',
     );
   }
 }
